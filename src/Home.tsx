@@ -180,7 +180,7 @@ export default function Home() {
           <MainText>
             <h3>Startup 1</h3>
             <h1>Forget About Code</h1>
-            <TextParagraph>
+            <TextParagraph padding="20px">
               Startup Framework gives you complete freedom over your creative
               process — you don’t have to think about any technical aspects.
               There are no limits and absolutely no coding.
