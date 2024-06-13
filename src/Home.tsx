@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import HomeBackGround from "../src/assets/Image.svg";
 import Ball from "../src/assets/Ball.svg";
@@ -39,18 +39,22 @@ export const StyledCreateAccount = styled.button<StyledCreateAccountProps>`
 export const SectionContainer = styled.section<{
   backGroundImage?: string;
   padding?: string;
+  backgroundLoaded?: boolean; // Add backgroundLoaded prop
 }>`
   display: flex;
   min-height: 100vh;
   background-image: url(${(props) => props.backGroundImage || ""});
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   background-size: cover;
   background-repeat: no-repeat;
-  background-color: #1e0e62;
   font-family: "DM Sans", sans-serif;
   color: white;
+  background-color: ${(props) =>
+    props.backgroundLoaded
+      ? "transparent"
+      : "#1e0e62"}; // Set background color conditionally
   padding: ${(props) => props.padding || ""};
 `;
 
@@ -59,10 +63,10 @@ export interface MiddleContentProps {
 }
 export const MiddleContent = styled.div<MiddleContentProps>`
   position: absolute;
-  top: 27%;
+  top: 22%;
   ${(props) => (props.rorl ? "right" : "left")}: 25%;
   @media only screen and (max-width: 768px) {
-    top: 15%;
+    top: 11%;
   }
 `;
 
@@ -94,12 +98,28 @@ export const HeaderButton = styled.button<HeaderButtonProps>`
 `;
 
 export default function Home() {
+  const [isBackgroundLoaded, setIsBackgroundLoaded] = useState(false);
+  const [hover, setHover] = useState(false);
+  const [hoverSec, setHoverSec] = useState(false);
+  const [visibility, setVisibility] = useState(1);
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = HomeBackGround;
+    img.onload = () => setIsBackgroundLoaded(true);
+  }, []);
+
   const SectionUl = styled.ul`
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    padding-top: 20px;
+  `;
+  const Title = styled.h1`
+    text-align: center;
+    padding: 0px 20px;
   `;
 
   const HeaderIcon = styled.img<{ size?: any }>`
@@ -116,15 +136,16 @@ export default function Home() {
     color: white;
     flex-direction: column;
     position: relative;
+    padding-bottom: 50px;
   `;
 
   const StyledCircleList = styled.div`
     padding: 15px 5px;
   `;
 
-  const [hover, setHover] = useState(false);
-  const [hoverSec, setHoverSec] = useState(false);
-  const [visibility, setVisibility] = useState(1);
+  if (!isBackgroundLoaded) {
+    return;
+  }
 
   return (
     <SectionContainer backGroundImage={HomeBackGround}>
@@ -179,8 +200,8 @@ export default function Home() {
         {visibility <= 1 ? (
           <MainText>
             <h3>Startup 1</h3>
-            <h1>Forget About Code</h1>
-            <TextParagraph padding="20px">
+            <Title>Forget About Code</Title>
+            <TextParagraph padding="0px 20px">
               Startup Framework gives you complete freedom over your creative
               process — you don’t have to think about any technical aspects.
               There are no limits and absolutely no coding.
@@ -190,8 +211,8 @@ export default function Home() {
         {visibility === 2 ? (
           <MainText>
             <h3>Startup 2</h3>
-            <h1>Unlock Your Potential</h1>
-            <TextParagraph>
+            <Title>Unlock Your Potential</Title>
+            <TextParagraph padding="0px 20px">
               Our platform unlocks your potential by streamlining the technical
               intricacies, allowing you to focus solely on your creative
               journey. Forget about constraints and coding complexities.
@@ -201,10 +222,10 @@ export default function Home() {
         {visibility === 3 ? (
           <MainText>
             <h3>Startup 3</h3>
-            <h1>Ignite Your Imagination</h1>
-            <TextParagraph>
+            <Title>Ignite Your Imagination</Title>
+            <TextParagraph padding="0px 20px">
               Experience the freedom to ignite your imagination without worrying
-              about technical hurdles. we remove limits and coding barriers,
+              about technical hurdles. We remove limits and coding barriers,
               giving you the space to explore and create without constraints.
             </TextParagraph>
           </MainText>
@@ -212,8 +233,8 @@ export default function Home() {
         {visibility === 4 ? (
           <MainText>
             <h3>Startup 4</h3>
-            <h1>Unleash Your Creativity</h1>
-            <TextParagraph>
+            <Title>Unleash Your Creativity</Title>
+            <TextParagraph padding="0px 20px">
               Our platform unleashes your creativity by eliminating technical
               complexities. Explore without limits and dive into your creative
               process without worrying about code.
@@ -223,8 +244,8 @@ export default function Home() {
         {visibility > 4 ? (
           <MainText>
             <h3>Startup 5</h3>
-            <h1>Embrace Innovation</h1>
-            <TextParagraph>
+            <Title>Embrace Innovation</Title>
+            <TextParagraph padding="0px 20px">
               Embrace innovation with our platform that frees you from technical
               constraints. Dive deep into your ideas and bring them to life
               without the need for coding.
@@ -247,76 +268,71 @@ export default function Home() {
             )}
           </StyledCircleList>
           <StyledCircleList>
-            {visibility == 3 ? (
+            {visibility === 3 ? (
               <img src={OnCircle} alt="" />
             ) : (
               <img src={OffCircle} alt="" />
             )}
           </StyledCircleList>
           <StyledCircleList>
-            {visibility == 4 ? (
+            {visibility === 4 ? (
               <img src={OnCircle} alt="" />
             ) : (
               <img src={OffCircle} alt="" />
             )}
           </StyledCircleList>
           <StyledCircleList>
-            {visibility == 5 ? (
+            {visibility > 4 ? (
               <img src={OnCircle} alt="" />
             ) : (
               <img src={OffCircle} alt="" />
             )}
           </StyledCircleList>
         </SectionUl>
-        <Link to="Register">
-          <StyledCreateAccount hoverColor="#563af0" backGroundColor="#4628f0">
-            Create an Account
-          </StyledCreateAccount>
-        </Link>
-        <div>
-          <MiddleContent>
-            <HeaderButton
-              onMouseEnter={() => setHover(true)}
-              onMouseLeave={() => setHover(false)}
-              onClick={() => {
-                if (visibility > 1) {
-                  setVisibility(visibility - 1);
+        <SectionUl>
+          <li>
+            <MiddleContent>
+              <HeaderButton
+                onMouseEnter={() => setHover(true)}
+                onMouseLeave={() => setHover(false)}
+                onClick={() =>
+                  setVisibility((prev) => (prev <= 1 ? 5 : prev - 1))
                 }
-              }}
-            >
-              {hover ? (
-                <img
-                  style={{ transform: "rotate(180deg)" }}
-                  src={RightArrow}
-                  alt=""
-                />
-              ) : (
-                <img src={LeftArrow} alt="" />
-              )}
-            </HeaderButton>
-          </MiddleContent>
-          <MiddleContent rorl="right">
-            <HeaderButton
-              onMouseEnter={() => setHoverSec(true)}
-              onMouseLeave={() => setHoverSec(false)}
-              onClick={() => {
-                if (visibility < 5) {
-                  setVisibility(visibility + 1);
+              >
+                {hover ? (
+                  <img
+                    style={{ transform: "rotate(180deg)" }}
+                    src={RightArrow}
+                    alt=""
+                  />
+                ) : (
+                  <img src={LeftArrow} alt="" />
+                )}
+              </HeaderButton>
+            </MiddleContent>
+          </li>
+          <li>
+            <MiddleContent rorl="right">
+              <HeaderButton
+                onMouseEnter={() => setHoverSec(true)}
+                onMouseLeave={() => setHoverSec(false)}
+                onClick={() =>
+                  setVisibility((prev) => (prev >= 5 ? 1 : prev + 1))
                 }
-              }}
-            >
-              {hoverSec ? (
-                <img src={RightArrow} alt="" />
-              ) : (
-                <img
-                  style={{ transform: "rotate(180deg)" }}
-                  src={LeftArrow}
-                  alt=""
-                />
-              )}
-            </HeaderButton>
-          </MiddleContent>
-        </div>
+              >
+                {hoverSec ? (
+                  <img src={RightArrow} alt="" />
+                ) : (
+                  <img
+                    style={{ transform: "rotate(180deg)" }}
+                    src={LeftArrow}
+                    alt=""
+                  />
+                )}
+              </HeaderButton>
+            </MiddleContent>
+          </li>
+        </SectionUl>
       </MainText>
     </SectionContainer>
   );

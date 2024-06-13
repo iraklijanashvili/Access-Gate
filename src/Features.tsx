@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
 import styled, { keyframes, createGlobalStyle } from "styled-components";
-import { SectionContainer } from "./Home";
 import MacBook from "../src/assets/MacBook.svg";
 import FeaturesBackground from "../src/assets/ScreenEffect.svg";
-import { MiddleContent } from "./Home";
-import { TextParagraph } from "./Home";
 import DimondIcon from "../src/assets/DimondIcon.svg";
-import SqureIcon from "../src/assets/SqureIcon.svg";
+import { SectionContainer, MiddleContent, TextParagraph } from "./Home";
 import Rectangle from "../src/assets/Rectangle.svg";
+import SqureIcon from "../src/assets/SqureIcon.svg";
 
 const GlobalStyle = createGlobalStyle`
   html, body {
@@ -43,10 +41,10 @@ const MacBookSizeContainer = styled.div`
   width: 100%;
   height: 90%;
   display: flex;
-  justify-content: start;
   position: relative;
   overflow: hidden;
 `;
+
 const FeaturesBackgroundPositionContainer = styled(MiddleContent)`
   top: 0%;
   left: 0%;
@@ -55,6 +53,7 @@ const FeaturesBackgroundPositionContainer = styled(MiddleContent)`
   padding-top: 20px;
   overflow: hidden;
 `;
+
 const MainTextContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -62,18 +61,26 @@ const MainTextContainer = styled.div`
   align-items: center;
   overflow: hidden;
 `;
+
 const FlexboxContainer = styled(MainTextContainer)`
   display: flex;
   flex-direction: row;
   overflow: hidden;
+  justify-content: center;
+  align-items: start;
+  justify-content: start;
 `;
+
 const FlexBoxSecContainer = styled(MainTextContainer)`
   align-items: start;
+  justify-content: start;
   overflow: hidden;
 `;
+
 const DimondSqureIcons = styled.img`
   padding-left: 12px;
 `;
+
 const HidenImage = styled.img`
   display: block;
   animation: ${appearFromLeft} 1s ease forwards;
@@ -81,14 +88,18 @@ const HidenImage = styled.img`
     display: none;
   }
 `;
+
 const HeaderText = styled.h1`
   padding: 0px 0px;
   animation: ${appearFromLeft} 1s ease forwards;
+  padding: 0px 15px;
+
   @media only screen and (max-width: 768px) {
     padding: 0px 25px;
     text-align: center;
   }
 `;
+
 const AnimatedText = styled(TextParagraph)`
   animation: ${appearFromRight} 1s ease forwards;
   padding: 0 10px;
@@ -111,6 +122,7 @@ export default function Features() {
         backGroundImage={Rectangle}
         style={{ overflow: "hidden" }}
       >
+        <img src={FeaturesBackground} alt="" style={{ display: "none" }} />
         {animationStarted && (
           <MacBookSizeContainer>
             <HidenImage src={MacBook} alt="" />

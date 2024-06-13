@@ -56,6 +56,7 @@ export const RegisterContainer = styled.div`
   flex-direction: column;
   color: black;
   border-radius: 20px;
+  margin: 20px 0px;
 `;
 
 export interface HeaderButtonProps {
@@ -168,6 +169,14 @@ export const ForgetPass = styled.a`
   margin-top: 20px;
   text-decoration: none;
 `;
+const TextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @media (min-width: 1024px) {
+    display: block;
+  }
+`;
 
 const Register: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -190,7 +199,7 @@ const Register: React.FC = () => {
     <SectionContainer backGroundImage={RegisterBackGround}>
       <Dflex>
         <HalfSplit>
-          <div>
+          <TextContainer>
             <TextPadding>
               We solve digital problems with an outstanding creative flare
             </TextPadding>
@@ -199,7 +208,7 @@ const Register: React.FC = () => {
               developers, and companies create websites for their startups
               quickly and easily.
             </RegisterTextParagraph>
-          </div>
+          </TextContainer>
         </HalfSplit>
         <HalfSplit>
           {active ? (
