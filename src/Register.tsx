@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import RegisterBackGround from "../src/assets/Background.svg";
 import { SectionContainer, TextParagraph, StyledCreateAccount } from "./Home";
+import LoadingContainer from "./Features";
 
 export const Dflex = styled.div`
   display: flex;
@@ -182,6 +183,7 @@ const Register: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [active, setActive] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -194,6 +196,25 @@ const Register: React.FC = () => {
     setEmail("");
     setPassword("");
   };
+  useEffect(() => {
+    const images = [RegisterBackGround];
+
+    Promise.all(
+      images.map((image) => {
+        return new Promise((resolve) => {
+          const img = new Image();
+          img.src = image;
+          img.onload = resolve;
+        });
+      })
+    ).then(() => {
+      setLoading(false);
+    });
+  }, []);
+
+  if (loading) {
+    return <LoadingContainer></LoadingContainer>;
+  }
 
   return (
     <SectionContainer backGroundImage={RegisterBackGround}>

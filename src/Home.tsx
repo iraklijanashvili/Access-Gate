@@ -45,7 +45,6 @@ export const SectionContainer = styled.section<{
   min-height: 100vh;
   background-image: url(${(props) => props.backGroundImage || ""});
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -63,10 +62,10 @@ export interface MiddleContentProps {
 }
 export const MiddleContent = styled.div<MiddleContentProps>`
   position: absolute;
-  top: 22%;
+  top: 33%;
   ${(props) => (props.rorl ? "right" : "left")}: 25%;
   @media only screen and (max-width: 768px) {
-    top: 11%;
+    top: 25%;
   }
 `;
 
@@ -137,6 +136,7 @@ export default function Home() {
     flex-direction: column;
     position: relative;
     padding-bottom: 50px;
+    margin-top: 80px;
   `;
 
   const StyledCircleList = styled.div`
